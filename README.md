@@ -45,7 +45,9 @@ wireguard_peers:
 
 ### Customize iptables rules
 
-For example, these rules routes inbound traffic to "internal" web servers:
+Works only with https://github.com/dddpaul/docker-wireguard until (and if) https://github.com/linuxserver/docker-wireguard/pull/202 will be merged.
+
+For example, these rules will route inbound traffic to "internal" web servers:
 
 ```yaml
 wireguard_post_up: >-
