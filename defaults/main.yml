@@ -1,0 +1,18 @@
+flush_all: False
+
+wireguard_service_name: wireguard
+wireguard_docker_image: lscr.io/linuxserver/wireguard
+
+wireguard_host_config_dir: /etc/wireguard
+wireguard_host_memory: 32m
+wireguard_host_port: 51820
+
+wireguard_port_mappings: []
+
+wireguard_peers:
+  - name: peer1
+    allowed_ips:
+  - name: peer2
+    allowed_ips:
+
+wireguard_log_confs: True

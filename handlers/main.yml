@@ -1,0 +1,21 @@
+---
+
+- name: wireguard restart
+  become: True
+  shell: systemctl daemon-reload
+  notify: wireguard restart service
+
+- name: wireguard restart service
+  service:
+    name: '{{ wireguard_service_name }}'
+    state: restarted
+    enabled: True
+
+- name: "reload systemctl daemon"
+  become: True
+  shell: systemctl daemon-reload
+  notify: reset failed
+
+- name: "reset failed"
+  become: True
+  shell: systemctl reset-failed

@@ -1,0 +1,11 @@
+- name: Install wireguard service
+  become: true
+  become_user: root
+  include: install.yml
+  when: not flush_all
+
+- name: Remove wireguard service
+  become: true
+  become_user: root
+  include: uninstall.yml
+  when: flush_all

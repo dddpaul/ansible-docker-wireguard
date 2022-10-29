@@ -1,0 +1,13 @@
+---
+
+- name: Create configuration directory
+  file:
+    path: "{{ wireguard_host_config_dir }}"
+    state: directory
+
+- name: Copy wireguard systemd service
+  template:
+    src: wireguard.service.j2
+    dest: "/etc/systemd/system/{{ wireguard_service_name }}.service"
+    backup: True
+  notify: wireguard restart

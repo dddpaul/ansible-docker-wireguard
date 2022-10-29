@@ -1,0 +1,19 @@
+---
+
+- name: Stop and disable service
+  systemd:
+    name: "{{ wireguard_service_name }}"
+    state: stopped
+    enabled: True
+  ignore_errors: True
+
+- name: Remove configuration directory
+  file:
+    path: "{{ wireguard_host_config_dir }}"
+    state: absent
+
+- name: Remove systemd service
+  file:
+    dest: "/etc/systemd/system/{{ wireguard_service_name }}.service"
+    state: absent
+  notify: reload systemctl daemon

@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  author: Pavel Derendyaev <dddpaul@gmail.com>
+  description: "Dockerized Wireguard role"
+  license: Apache v2
+
+  galaxy_tags:
+    - docker
+    - container
+
+dependencies: []

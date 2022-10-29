@@ -1,0 +1,34 @@
+[Unit]
+Description=Wireguard daemon
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run --rm \
+  --name {{ wireguard_service_name }} \
+  --cap-add=NET_ADMIN \
+  --cap-add=SYS_MODULE \
+  -p {{ wireguard_host_port }}:51820/udp \
+  {% for port in wireguard_port_mappings %}-p {{ port }} {% endfor %} \
+  -m {{ wireguard_host_memory }} \
+  -v {{ wireguard_host_config_dir }}:/config \
+  -v /lib/modules:/lib/modules \
+  -e LOG_CONFS={{ wireguard_log_confs }} \
+  -e PEERS={% for peer in wireguard_peers %}{{ peer.name }}{% if not loop.last %},{% endif %}{% endfor %} \
+  {% for peer in wireguard_peers %}
+  {% if (peer.allowed_ips is defined) and (peer.allowed_ips | length > 0) %}
+  -e SERVER_ALLOWEDIPS_PEER_{{ peer.name }}={{ peer.allowed_ips }} \
+  {% endif %}
+  {% endfor %}
+  {% if (wireguard_post_up is defined) and (wireguard_post_up | length > 0) %}
+  -e POST_UP="{{ wireguard_post_up }}" \
+  {% endif %}
+  {% if (wireguard_post_down is defined) and (wireguard_post_down | length > 0) %}
+  -e POST_DOWN="{{ wireguard_post_down }}" \
+  {% endif %}
+  {{ wireguard_docker_image }}
+ExecStop=/usr/bin/docker stop -t 10 {{ wireguard_service_name }}
+
+[Install]
+WantedBy=default.target
