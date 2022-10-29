@@ -31,7 +31,15 @@ wireguard_port_mappings:
   - 443:8443/tcp
 ```
 
-### Configure peers
+### Configure peers for outbound VPN mode
+
+```yaml
+wireguard_peers:
+  - name: peer1
+  - name: peer2
+```
+
+### Configure peers in site-to-site mode
 
 ```yaml
 wireguard_peers:
