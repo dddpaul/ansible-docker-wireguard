@@ -21,6 +21,9 @@ ExecStart=/usr/bin/docker run --rm \
   -e SERVER_ALLOWEDIPS_PEER_{{ peer.name }}={{ peer.allowed_ips }} \
   {% endif %}
   {% endfor %}
+  {% if (wireguard_internal_subnet is defined) and (wireguard_internal_subnet | length > 0) %}
+  -e INTERNAL_SUBNET="{{ wireguard_internal_subnet }}" \
+  {% endif %}
   {% if (wireguard_post_up is defined) and (wireguard_post_up | length > 0) %}
   -e POST_UP="{{ wireguard_post_up }}" \
   {% endif %}
