@@ -1,11 +1,15 @@
 - name: Install wireguard service
-  become: true
-  become_user: root
-  include: install.yml
-  when: not flush_all
+  include_tasks: install.yml
+  args:
+    apply:
+      become: true
+      become_user: root
+      when: not flush_all
 
 - name: Remove wireguard service
-  become: true
-  become_user: root
-  include: uninstall.yml
-  when: flush_all
+  include_tasks: uninstall.yml
+  args:
+    apply:
+      become: true
+      become_user: root
+      when: flush_all
