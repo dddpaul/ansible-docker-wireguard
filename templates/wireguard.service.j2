@@ -9,6 +9,7 @@ ExecStart=/usr/bin/docker run --rm \
   --name {{ wireguard_service_name }} \
   --cap-add=NET_ADMIN \
   --cap-add=SYS_MODULE \
+  --net {{ wireguard_network }} \
   -p {{ wireguard_host_port }}:51820/udp \
   {% for port in wireguard_port_mappings %}-p {{ port }} {% endfor %} \
   -m {{ wireguard_host_memory }} \

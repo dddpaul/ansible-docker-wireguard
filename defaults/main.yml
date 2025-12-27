@@ -6,6 +6,7 @@ wireguard_docker_image: lscr.io/linuxserver/wireguard
 wireguard_host_config_dir: /etc/wireguard
 wireguard_host_memory: 32m
 wireguard_host_port: 51820
+wireguard_network: bridge
 
 wireguard_port_mappings: []
 
